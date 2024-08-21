@@ -12,10 +12,16 @@ function gettingData(){
     return modelData.db.readyState === 1
 }
 
+// database connection status
 app.get('/',(req,res) => {
     const calling = gettingData()
     let connectionStatus = calling ? "database connected" : "connection failed"
     res.send(connectionStatus)
+})
+
+// get api used successfully
+app.get('/get',(req,res) =>{
+    res.send("GET API used successfully")
 })
 
 app.listen(3000,() =>{
