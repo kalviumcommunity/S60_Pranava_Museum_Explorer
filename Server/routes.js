@@ -12,7 +12,7 @@ app.get('/get',(req,res) =>{
         res.json({source})
     })
     .catch((err) =>{
-        res.status(500).json({err})
+        res.json({err})
     }) 
 })
 
