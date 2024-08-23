@@ -17,9 +17,7 @@ app.get('/get',(req,res) =>{
 })
 
 app.post('/createUser',(req,res) =>{
-    userData.create(req.body)
-    .then(result => res.json(result))
-    .catch(err => res.json(err))
+   res.send("post request working successfully")
 })
 
 app.put('/put/:id',(req,res)=>{
