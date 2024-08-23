@@ -1,9 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const routes = require('./routes')
+const cors = require('cors')
 
 const app = express()
 
+app.use(cors())
+app.use(express.json())
 app.use('/',routes)
 
 const {connectiondata,modelData} = require("./mongodb")
@@ -19,10 +22,6 @@ app.get('/',(req,res) => {
     res.send(connectionStatus)
 })
 
-// get api used successfully
-app.get('/get',(req,res) =>{
-    res.send("GET API used successfully")
-})
 
 app.listen(3000,() =>{
     connectiondata()
