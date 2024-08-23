@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose")
 const dotenv = require('dotenv')
 dotenv.config()
@@ -9,8 +10,9 @@ function dataBaseConnection() {
         .then(() => {
             console.log("connection success")
         })
-        .catch(() => {
+        .catch((error) => {
             console.log("connection failed")
+            console.log(error)
         })
 }
 
@@ -23,7 +25,14 @@ const mongooseSchema = new mongoose.Schema({
     Rating: Number,
 })
 
+const userSchema = new mongoose.Schema({
+    User_Name : String,
+    Email : String,
+    Password : String
+})
+
 const modelData = mongoose.model('Museum_Data', mongooseSchema)
+const modelUserData = mongoose.model('User_Data', userSchema)
 // modelData.insertMany(data).then(() =>{console.log("connected")})
 
-module.exports = {modelData:modelData, connectiondata:dataBaseConnection}
+module.exports = {modelData:modelData, connectiondata:dataBaseConnection,userData:modelUserData}

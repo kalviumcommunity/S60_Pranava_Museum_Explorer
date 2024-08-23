@@ -1,12 +1,25 @@
+
 const express = require('express')
 const app = express()
 
-app.get('/get1',(req,res) =>{
-    res.send('Successful get request')
+const {modelData, userData} = require("./mongodb")
+
+// get api used successfully
+app.get('/get',(req,res) =>{
+    modelData.find({})
+    .then((source) =>{
+        // res.send("GET API used successfully")
+        res.json({source})
+    })
+    .catch((err) =>{
+        res.status(500).json({err})
+    }) 
 })
 
-app.post('/post',(req,res) =>{
-    res.status(201).send('Successful post request')
+app.post('/createUser',(req,res) =>{
+    userData.create(req.body)
+    .then(result => res.json(result))
+    .catch(err => res.json(err))
 })
 
 app.put('/put/:id',(req,res)=>{
