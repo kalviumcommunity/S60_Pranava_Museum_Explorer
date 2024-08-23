@@ -17,7 +17,7 @@ app.get('/get',(req,res) =>{
 })
 
 app.post('/createUser',(req,res) =>{
-   res.send("post request working successfully")
+   res.send("Successfully post request done")
 })
 
 app.put('/put/:id',(req,res)=>{
