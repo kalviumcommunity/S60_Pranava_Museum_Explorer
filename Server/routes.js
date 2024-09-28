@@ -1,7 +1,6 @@
 
 const express = require('express')
 const app = express()
-
 const {modelData, userData} = require("./mongodb")
 
 // get api used successfully
@@ -20,6 +19,19 @@ app.post('/createUser',(req,res) =>{
     userData.create(req.body)
     .then(result => res.json(result))
     .catch(err => res.json(err))
+})
+
+app.post('/login',async(req,res)=>{
+    const {email,password} = req.body
+    const details = await userData.findOne({Email:email})
+    // console.log(details)
+    const p = details.Password;
+    if (p == password){
+        res.send(200);
+    }
+    else{
+        res.send(400);
+    }
 })
 
 app.put('/put/:id',(req,res)=>{

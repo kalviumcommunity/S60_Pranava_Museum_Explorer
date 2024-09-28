@@ -1,6 +1,25 @@
+import { useState } from "react";
+import {useNavigate} from "react-router-dom"
+import axios from "axios";
 export default function Login() {
+  const navigate = useNavigate()
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:3000/login',{
+      email:email,
+      password:password
+    })
+    .then(()=>{
+      navigate("/MuseumData")
+    })
+    .catch((err)=>{
+      console.log("Error in logging in")
+    })
+  }
     return (
-      <div>
+      <div onSubmit={handleSubmit}>
         <div className="h-96 flex items-center justify-center mt-[10%]">
           <div className="relative">
             <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-gradient-to-r from-purple-200 via-pink-300 to-red-500 shadow-lg animate-pulse"></div>
@@ -18,6 +37,7 @@ export default function Login() {
                   id="email"
                   name="email"
                   type="text"
+                  onChange={(e)=>setEmail(e.target.value)}
                 />
                 <input
                   className="w-full h-12 border border-gray-800 px-3 rounded-lg"
@@ -25,6 +45,7 @@ export default function Login() {
                   id="password"
                   name="password"
                   type="password"
+                  onChange={(e)=>setPassword(e.target.value)}
                 />
                 <button
                   className="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
