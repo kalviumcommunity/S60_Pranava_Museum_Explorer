@@ -4,7 +4,6 @@ const dotenv = require('dotenv')
 dotenv.config()
 const data = require("./data")
 
-
 function dataBaseConnection() {
     mongoose.connect(process.env.DATABASE_URL)
         .then(() => {
