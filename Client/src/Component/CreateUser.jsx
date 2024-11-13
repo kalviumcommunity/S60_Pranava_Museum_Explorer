@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';  // Make sure to import axios
 
 function CreateUser() {
-
     const [User_Name, setUser_Name] = useState("");
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
+    const [passwordError, setPasswordError] = useState(""); // State to manage password error message
     const home = useNavigate();
-
 
     const handleUser_Name = (event) => {
         setUser_Name(event.target.value);
@@ -18,12 +17,33 @@ function CreateUser() {
         setEmail(event.target.value);
     };
 
+    // Password validation function
+    const validatePassword = (password) => {
+        const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+        return passwordPattern.test(password);
+    };
+
     const handlePassword = (event) => {
-        setPassword(event.target.value);
+        const newPassword = event.target.value;
+        setPassword(newPassword);
+
+        // Check password validity and set error message if invalid
+        if (!validatePassword(newPassword)) {
+            setPasswordError("Password must have at least 8 characters, including a number and a special character.");
+        } else {
+            setPasswordError(""); // Clear error message if password is valid
+        }
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        
+        // Ensure password is valid before submitting
+        if (passwordError) {
+            alert("Please fix the password errors before submitting.");
+            return;
+        }
+
         home("/MuseumData");
         axios.post("http://localhost:3000/createUser", {
             User_Name,
@@ -46,6 +66,7 @@ function CreateUser() {
                             <div className="mb-4">
                                 <input
                                     aria-describedby="name-addon"
+                                    required
                                     aria-label="Name"
                                     placeholder="Name"
                                     value={User_Name}
@@ -57,6 +78,7 @@ function CreateUser() {
                             <div className="mb-4">
                                 <input
                                     aria-describedby="email-addon"
+                                    required
                                     aria-label="Email"
                                     placeholder="Email"
                                     value={Email}
@@ -68,6 +90,7 @@ function CreateUser() {
                             <div className="mb-4">
                                 <input
                                     aria-describedby="password-addon"
+                                    required
                                     aria-label="Password"
                                     placeholder="Password"
                                     value={Password}
@@ -75,6 +98,10 @@ function CreateUser() {
                                     className="text-sm focus:shadow-soft-primary-outline block w-3/4 mx-auto rounded-lg border border-gray-400 bg-gray-50 py-2 px-3 text-gray-800 transition-all focus:border-brown-300 focus:bg-white focus:text-gray-800 focus:outline-none"
                                     type="password"
                                 />
+                                {/* Display password error if any */}
+                                {passwordError && (
+                                    <p className="text-red-500 text-sm mt-2">{passwordError}</p>
+                                )}
                             </div>
                             <div className="text-center">
                                 <button
