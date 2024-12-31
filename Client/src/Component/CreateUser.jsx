@@ -111,6 +111,15 @@ function CreateUser() {
                                     Sign up
                                 </button>
                             </div>
+                            <p>or</p>
+                            <div>
+                                <button
+                                  type="submit"
+                                  className="inline-block w-1/2 px-6 py-3 mt-6 mb-2 font-bold text-center text-black uppercase align-middle transition-all bg-brown-500 border-0 rounded-lg cursor-pointer hover:scale-102 leading-pro text-xs tracking-tight-soft shadow-soft-md hover:shadow-soft-xs active:opacity-85"
+                                  onClick={() => home("/login")}>
+                                    alreday a user
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
