@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';  // Make sure to import axios
+import signup from '../assets/sign up.jpg'
 
 function CreateUser() {
     const [User_Name, setUser_Name] = useState("");
@@ -55,11 +56,14 @@ function CreateUser() {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-cover bg-center">
-            <div className="w-full max-w-md px-3">
-                <div className="relative z-0 flex flex-col min-w-0 break-words bg-white/80 border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-                    <div className="p-6 mb-0 text-center bg-gold-500 border-b-0 rounded-t-2xl">
-                        <h5 className="text-dark text-xl font-bold">Join the Museum Explorer</h5>
+        <div className="flex justify-center items-center min-h-screen bg-cover bg-center"
+            style={{
+                backgroundImage: `url(${signup})`
+            }}>
+            <div className="w-full max-w-md px-4">
+                <div className="relative z-0 flex flex-col min-w-0 break-words bg-white/90 border-0 shadow-lg rounded-3xl">
+                    <div className="p-6 mb-0 text-center bg-gradient-to-r from-yellow-500 to-orange-400 rounded-t-3xl">
+                        <h5 className="text-white text-2xl font-extrabold">Join the Museum Explorer</h5>
                     </div>
                     <div className="flex-auto p-6">
                         <form role="form" className="text-center" onSubmit={handleSubmit}>
@@ -71,7 +75,7 @@ function CreateUser() {
                                     placeholder="Name"
                                     value={User_Name}
                                     onChange={handleUser_Name}
-                                    className="text-sm focus:shadow-soft-primary-outline block w-3/4 mx-auto rounded-lg border border-gray-400 bg-gray-50 py-2 px-3 text-gray-800 transition-all focus:border-brown-300 focus:bg-white focus:text-gray-800 focus:outline-none"
+                                    className="text-md focus:shadow-lg block w-3/4 mx-auto rounded-full border border-gray-300 bg-white py-3 px-4 text-gray-900 transition-all focus:border-orange-400 focus:bg-white focus:text-gray-900 focus:outline-none"
                                     type="text"
                                 />
                             </div>
@@ -83,7 +87,7 @@ function CreateUser() {
                                     placeholder="Email"
                                     value={Email}
                                     onChange={handleEmail}
-                                    className="text-sm focus:shadow-soft-primary-outline block w-3/4 mx-auto rounded-lg border border-gray-400 bg-gray-50 py-2 px-3 text-gray-800 transition-all focus:border-brown-300 focus:bg-white focus:text-gray-800 focus:outline-none"
+                                    className="text-md focus:shadow-lg block w-3/4 mx-auto rounded-full border border-gray-300 bg-white py-3 px-4 text-gray-900 transition-all focus:border-orange-400 focus:bg-white focus:text-gray-900 focus:outline-none"
                                     type="email"
                                 />
                             </div>
@@ -95,10 +99,9 @@ function CreateUser() {
                                     placeholder="Password"
                                     value={Password}
                                     onChange={handlePassword}
-                                    className="text-sm focus:shadow-soft-primary-outline block w-3/4 mx-auto rounded-lg border border-gray-400 bg-gray-50 py-2 px-3 text-gray-800 transition-all focus:border-brown-300 focus:bg-white focus:text-gray-800 focus:outline-none"
+                                    className="text-md focus:shadow-lg block w-3/4 mx-auto rounded-full border border-gray-300 bg-white py-3 px-4 text-gray-900 transition-all focus:border-orange-400 focus:bg-white focus:text-gray-900 focus:outline-none"
                                     type="password"
                                 />
-                                {/* Display password error if any */}
                                 {passwordError && (
                                     <p className="text-red-500 text-sm mt-2">{passwordError}</p>
                                 )}
@@ -106,18 +109,19 @@ function CreateUser() {
                             <div className="text-center">
                                 <button
                                     type="submit"
-                                    className="inline-block w-1/2 px-6 py-3 mt-6 mb-2 font-bold text-center text-black uppercase align-middle transition-all bg-brown-500 border-0 rounded-lg cursor-pointer hover:scale-102 leading-pro text-xs tracking-tight-soft shadow-soft-md hover:shadow-soft-xs active:opacity-85"
+                                    className="inline-block w-1/2 px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase transition-all bg-orange-500 border-0 rounded-full cursor-pointer hover:scale-105 hover:bg-orange-600 shadow-md active:opacity-85"
                                 >
                                     Sign up
                                 </button>
                             </div>
-                            <p>or</p>
+                            <p className="text-gray-700 font-medium mt-4">or</p>
                             <div>
                                 <button
-                                  type="submit"
-                                  className="inline-block w-1/2 px-6 py-3 mt-6 mb-2 font-bold text-center text-black uppercase align-middle transition-all bg-brown-500 border-0 rounded-lg cursor-pointer hover:scale-102 leading-pro text-xs tracking-tight-soft shadow-soft-md hover:shadow-soft-xs active:opacity-85"
-                                  onClick={() => home("/login")}>
-                                    alreday a user
+                                    type="button"
+                                    className="inline-block w-1/2 px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase transition-all bg-gray-700 border-0 rounded-full cursor-pointer hover:scale-105 hover:bg-gray-800 shadow-md active:opacity-85"
+                                    onClick={() => home("/login")}
+                                >
+                                    Already a user
                                 </button>
                             </div>
                         </form>
@@ -126,6 +130,7 @@ function CreateUser() {
             </div>
         </div>
     );
+    
 }
 
 export default CreateUser;
