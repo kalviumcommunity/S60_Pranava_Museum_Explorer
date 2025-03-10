@@ -9,6 +9,7 @@ import CulturalMuseums from "./MuseumTypes/CulturalMuseums";
 import HistoryMuseums from "./MuseumTypes/HistoryMuseums";
 import NaturalMuseums from "./MuseumTypes/NaturalHistoryMuseums";
 import ScienceMuseums from "./MuseumTypes/Science&TechnologyMuseums";
+import Profile from "./Component/Profile";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/HistoryMuseums" element={<HistoryMuseums/>}></Route>
         <Route path="/NaturalMuseums" element={<NaturalMuseums/>}></Route>
         <Route path="/ScienceMuseums" element={<ScienceMuseums/>}></Route>
+        <Route path="/Profile" element={<Profile/>}></Route>
 
       </Routes>
     </div>
