@@ -30,8 +30,16 @@ const userSchema = new mongoose.Schema({
     Password : String
 })
 
+const userProfile = new mongoose.Schema({
+    Location : String,
+    Hobby : String,
+    Bio : String,
+
+})
+
 const modelData = mongoose.model('Museum_Data', mongooseSchema)
 const modelUserData = mongoose.model('User_Data', userSchema)
 // modelData.insertMany(data).then(() =>{console.log("connected")})
+const profileData = mongoose.model('Profile_Data',userProfile)
 
-module.exports = {modelData:modelData, connectiondata:dataBaseConnection,userData:modelUserData}
+module.exports = {modelData:modelData, connectiondata:dataBaseConnection,userData:modelUserData, User_Profile:profileData}
