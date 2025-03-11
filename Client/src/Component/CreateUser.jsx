@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';  // Make sure to import axios
 import signup from '../assets/sign up.jpg'
 
+
 function CreateUser() {
     const [User_Name, setUser_Name] = useState("");
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState(""); // State to manage password error message
+    const [location, setLocation] = useState("")
+    const [Hobbies, setHobbies] = useState("")
     const home = useNavigate();
 
     const handleUser_Name = (event) => {
@@ -18,6 +21,13 @@ function CreateUser() {
         setEmail(event.target.value);
     };
 
+    const handleLocation  = (event) =>{
+        setLocation(event.target.value)
+    }
+
+    const handleHobbies = (event) =>{
+        setHobbies(event.target.value)
+    }
     // Password validation function
     const validatePassword = (password) => {
         const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
@@ -36,7 +46,7 @@ function CreateUser() {
         }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
         
         // Ensure password is valid before submitting
@@ -45,14 +55,26 @@ function CreateUser() {
             return;
         }
 
-        home("/MuseumData");
-        axios.post("http://localhost:3000/createUser", {
+        try {
+            const res = await axios.post("http://localhost:3000/createUser", {
             User_Name,
             Email,
             Password,
+            location,
+            Hobbies,
+
         })
-        .then((result) => console.log(result))
-        .catch((err) => console.log(err));
+        if (res.status===201){
+            alert('successfully register')
+            home("/MuseumData")
+        }
+        
+        } catch (error) {
+            console.log(error)
+        }
+        
+        
+        
     };
 
     return (
@@ -105,6 +127,27 @@ function CreateUser() {
                                 {passwordError && (
                                     <p className="text-red-500 text-sm mt-2">{passwordError}</p>
                                 )}
+                            </div>
+
+                            <div className='mb-4'>
+                                <input type="text"
+                                required
+                                placeholder='location'
+                                value={location}
+                                onChange={handleLocation}
+                                className="text-md focus:shadow-lg block w-3/4 mx-auto rounded-full border border-gray-300 bg-white py-3 px-4 text-gray-900 transition-all focus:border-orange-400 focus:bg-white focus:text-gray-900 focus:outline-none"
+                                 />
+                               
+                            </div>
+
+                            <div className='mb-4'>
+                                <input type="text"
+                                required
+                                placeholder='Hobbies'
+                                value={Hobbies}
+                                onChange={handleHobbies}
+                                className="text-md focus:shadow-lg block w-3/4 mx-auto rounded-full border border-gray-300 bg-white py-3 px-4 text-gray-900 transition-all focus:border-orange-400 focus:bg-white focus:text-gray-900 focus:outline-none"
+                                />
                             </div>
                             <div className="text-center">
                                 <button
