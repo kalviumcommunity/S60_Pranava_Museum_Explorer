@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const dotenv = require('dotenv')
 dotenv.config()
 const data = require("./data")
+const { stringify } = require("postcss")
 
 function dataBaseConnection() {
     mongoose.connect(process.env.DATABASE_URL)
@@ -27,19 +28,17 @@ const mongooseSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
     User_Name : String,
     Email : String,
-    Password : String
-})
-
-const userProfile = new mongoose.Schema({
-    Location : String,
-    Hobby : String,
+    Password : String,
+    location : String,
+    Hobbies : String,
     Bio : String,
 
 })
 
+
 const modelData = mongoose.model('Museum_Data', mongooseSchema)
 const modelUserData = mongoose.model('User_Data', userSchema)
 // modelData.insertMany(data).then(() =>{console.log("connected")})
-const profileData = mongoose.model('Profile_Data',userProfile)
 
-module.exports = {modelData:modelData, connectiondata:dataBaseConnection,userData:modelUserData, User_Profile:profileData}
+
+module.exports = {modelData:modelData, connectiondata:dataBaseConnection,userData:modelUserData,}
