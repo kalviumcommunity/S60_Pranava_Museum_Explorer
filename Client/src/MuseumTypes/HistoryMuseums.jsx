@@ -9,15 +9,17 @@ export default function HistoryMuseums() {
         async function fetchHistoricalMuseums() {
             const endpoint = "https://query.wikidata.org/sparql";
             const query = `
-                SELECT ?museum ?museumLabel ?location ?image ?inception WHERE {
-                    VALUES ?museumType { wd:Q3361245 wd:Q23039007 wd:Q1058405 wd:Q838948 wd:Q209907 wd:Q1970365 }
-                    ?museum wdt:P31 ?museumType.
-                    OPTIONAL { ?museum wdt:P18 ?image. }
-                    OPTIONAL { ?museum wdt:P571 ?inception. }
-                    OPTIONAL { ?museum wdt:P625 ?location. }
-                    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-                }
-                LIMIT 20
+            SELECT ?museum ?museumLabel ?location ?image ?inception WHERE {
+                VALUES ?museumType { wd:Q33506 }  # Q33506 = "History Museum" in Wikidata
+                ?museum wdt:P31 ?museumType.
+                
+                OPTIONAL { ?museum wdt:P18 ?image. }         # Image
+                OPTIONAL { ?museum wdt:P571 ?inception. }    # Inception (founding year)
+                OPTIONAL { ?museum wdt:P625 ?location. }     # Coordinates
+            
+                SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+            }
+            LIMIT 20            
             `;
 
             const url = `${endpoint}?query=${encodeURIComponent(query)}&format=json`;
